@@ -26,7 +26,8 @@ const Category: React.FC<Props> = ({navigation}) => {
     height: Math.floor(width * 0.68),
   };
 
-  const {addBookmark, removeBookmark, checkBookMark, bookmarks} = useBookmarkStore();
+  const {addBookmark, removeBookmark, checkBookMark, bookmarks} =
+    useBookmarkStore();
   // console.log('bookmarksbookmarks', bookmarks)
   return (
     <View>
@@ -43,14 +44,17 @@ const Category: React.FC<Props> = ({navigation}) => {
           return (
             <>
               <Button
-              key={`${uniqueId}-button-${index}`}
+                key={`${uniqueId}-button-${index}`}
                 onPress={onPress}
                 type={label === activeCategory ? 'primary' : 'secondary'}
                 size="small"
                 label={label.toUpperCase()}
               />
               {index < CATEGORY.length - 1 ? (
-                <View key={`${uniqueId}-button-gap-${index}`} style={{width: 12}} />
+                <View
+                  key={`${uniqueId}-button-gap-${index}`}
+                  style={{width: 12}}
+                />
               ) : (
                 void 0
               )}
@@ -58,59 +62,57 @@ const Category: React.FC<Props> = ({navigation}) => {
           );
         }}
       />
-      {loading ? (
+      <View>
         <View style={{height: cardStyle.height}}>
-          <Loader />
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{paddingHorizontal: 20}}
+            data={articles}
+            renderItem={({item, index}) => {
+              const data = {
+                id: `${uniqueId}-${index}`,
+                title: item.title,
+                subTitle: item.description,
+                image: {uri: item.urlToImage},
+              };
+
+              const onPress = () => {
+                navigation.push('webview', {
+                  uri: item.url,
+                });
+              };
+
+              const isBookmark = checkBookMark(item);
+              const onPressBookmarkIcon = () => {
+                if (isBookmark) {
+                  removeBookmark(item);
+                } else {
+                  addBookmark(item);
+                }
+              };
+
+              return (
+                <>
+                  <NewsCard
+                    isBookmark={isBookmark}
+                    key={data.id}
+                    onPress={onPress}
+                    onPressBookmarkIcon={onPressBookmarkIcon}
+                    {...data}
+                  />
+                  {index < articles.length - 1 ? (
+                    <View key={`${data.id}-gap`} style={{width: 12}} />
+                  ) : (
+                    void 0
+                  )}
+                </>
+              );
+            }}
+          />
+          {loading ? <Loader /> : <></>}
         </View>
-      ) : (
-        <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{paddingHorizontal: 20}}
-          data={articles}
-          renderItem={({item, index}) => {
-            const data = {
-              id: `${uniqueId}-${index}`,
-              title: item.title,
-              subTitle: item.description,
-              image: {uri: item.urlToImage},
-            };
-
-            const onPress = () => {
-              navigation.push('webview', {
-                uri: item.url,
-              });
-            };
-
-
-            const isBookmark = checkBookMark(item)
-            const onPressBookmarkIcon = () => {
-              if(isBookmark){
-                removeBookmark(item)
-              }else{
-                addBookmark(item)
-              }
-            };
-
-            return (
-              <>
-                <NewsCard
-                  isBookmark={isBookmark}
-                  key={data.id}
-                  onPress={onPress}
-                  onPressBookmarkIcon={onPressBookmarkIcon}
-                  {...data}
-                />
-                {index < articles.length - 1 ? (
-                  <View key={`${data.id}-gap`} style={{width: 12}} />
-                ) : (
-                  void 0
-                )}
-              </>
-            );
-          }}
-        />
-      )}
+      </View>
     </View>
   );
 };

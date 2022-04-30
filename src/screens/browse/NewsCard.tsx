@@ -1,12 +1,13 @@
 import React from 'react';
 import {
-  Image,
+  // Image,
   ImageSourcePropType,
   StyleSheet,
   useWindowDimensions,
   View,
 } from 'react-native';
-import {BookmarkIcon} from '../../assets/svg';
+import Image from 'react-native-fast-image';
+import {PhotoIcon, BookmarkV2EmptyIcon, BookmarkV2FilledIcon} from '../../assets/svg';
 import TextView from '../../components/text-view';
 import Touch from '../../components/touch';
 import {useBookmarkStore} from '../../context/Store';
@@ -38,15 +39,20 @@ const NewsCard: React.FC<Props> = ({
     height: Math.floor(width * 0.68),
   };
 
+  const BookmarkIcon = isBookmark ? BookmarkV2FilledIcon : BookmarkV2EmptyIcon 
+
   return (
     <Touch onPress={onPress} style={[cardStyle, styles.container]}>
+      <View style={styles.imageBgContainer}>
+        <PhotoIcon width="100%" height="100%" />
+      </View>
       <Image source={image} style={styles.bgImage} />
       <View style={styles.contentContainer}>
         <Touch onPress={onPressBookmarkIcon} style={styles.iconContainer}>
           <BookmarkIcon fill={COLORS[isBookmark ? 'PURPLEDARKER' : 'WHITE']} />
         </Touch>
         <View>
-          <TextView style={styles.title} color="GREYLIGHTER">
+          <TextView numberOfLines={1} style={styles.title} color="GREYLIGHTER">
             {title}
           </TextView>
           <TextView
@@ -73,15 +79,28 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     justifyContent: 'space-between',
-    padding: 24,
+    paddingLeft: 24,
+    paddingRight: 16,
+    paddingTop: 16,
+    paddingBottom: 24,
+    // padding: 24,
+  },
+  imageBgContainer: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    overflow: 'hidden',
+    backgroundColor: COLORS['PURPLELIGHT'],
+    padding: 20,
   },
   bgImage: {width: '100%', height: '100%'},
-  iconContainer: {width: 24, height: 24, alignSelf: 'flex-end'},
+  iconContainer: {width: 40, height: 40, padding: 8, alignSelf: 'flex-end'},
   title: {
     fontSize: 12,
     lineHeight: 16,
     fontWeight: '400',
     fontStyle: 'normal',
+    marginRight: 8,
   },
   subTitle: {
     marginTop: 8,
@@ -89,5 +108,6 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     fontWeight: '700',
     fontStyle: 'normal',
+    marginRight: 8,
   },
 });

@@ -1,20 +1,31 @@
 import React from 'react';
-import {Image, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import Image from 'react-native-fast-image';
+import {PhotoIcon} from '../../assets/svg';
 import TextView from '../../components/text-view';
 import Touch from '../../components/touch';
+import COLORS from '../../theme/colors';
 
 interface Props {
   id: string;
   title: string;
   subTitle: string;
   image: any;
-  onPress?: ()=>any
+  onPress?: () => any;
 }
 
-const RecommendedCard: React.FC<Props> = ({image, title, subTitle, onPress}) => {
+const RecommendedCard: React.FC<Props> = ({
+  image,
+  title,
+  subTitle,
+  onPress,
+}) => {
   return (
     <Touch onPress={onPress} style={styles.container}>
       <View style={styles.imageContainer}>
+        <View style={styles.imageBg}>
+          <PhotoIcon width="100%" height="100%" />
+        </View>
         <Image style={styles.image} source={image} />
       </View>
       <View style={styles.titleContainer}>
@@ -37,6 +48,14 @@ export default RecommendedCard;
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
+  },
+  imageBg: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    overflow: 'hidden',
+    backgroundColor: COLORS['PURPLELIGHT'],
+    padding: 10,
   },
   imageContainer: {width: 96, height: 96, borderRadius: 12, overflow: 'hidden'},
   image: {width: '100%', height: '100%'},

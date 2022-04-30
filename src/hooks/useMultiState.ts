@@ -9,7 +9,7 @@ const useMultiState = (initialState: Props) => {
 
   const state = multiState;
   const setState = async (newState: Props) => {
-    await setMultiState({...initialState, ...newState});
+    await setMultiState({...multiState, ...newState});
   };
 
   return {state, setState};

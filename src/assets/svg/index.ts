@@ -5,8 +5,9 @@ import UserIcon from './user.svg';
 import SearchIcon from './search.svg';
 import MicrophoneIcon from './microphone.svg';
 import BookmarkV2EmptyIcon from './bookmark-v2-empty.svg';
-import BookmarkV2FillerIcon from './bookmark-v2-filled.svg';
+import BookmarkV2FilledIcon from './bookmark-v2-filled.svg';
 import LeftArrowIcon from './left-arrow-icon.svg';
+import PhotoIcon from './photo-icon.svg'
 
 export {
   AppsIcon,
@@ -16,6 +17,7 @@ export {
   SearchIcon,
   MicrophoneIcon,
   BookmarkV2EmptyIcon,
-  BookmarkV2FillerIcon,
+  BookmarkV2FilledIcon,
   LeftArrowIcon,
+  PhotoIcon
 };

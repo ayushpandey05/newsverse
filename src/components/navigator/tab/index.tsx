@@ -41,10 +41,10 @@ const TabNavigator: React.FC<Props> = props => {
     const newTabStack = [...tabStack];
 
     if (tabIndex === -1) {
-      newTabStack[index + 1] = screenKey;
+      newTabStack[tabStack?.length || 0] = screenKey;
     }
 
-    setState({tabStack: [newActiveTab], activeTab: newActiveTab});
+    setState({tabStack: newTabStack, activeTab: newActiveTab});
   };
 
   const onPressBackButton = () => {

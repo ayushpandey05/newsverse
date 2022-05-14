@@ -1,51 +1,102 @@
 import React from 'react';
-import {View} from 'react-native';
+import {StyleSheet, View, ScrollView} from 'react-native';
 import {NavigationProps} from '../../components/navigator/stack';
 import TextView from '../../components/text-view';
-import Touch from '../../components/touch';
-import COLORS from '../../theme/colors';
+import useGoogleAuth from '../../hooks/useGoogleAuth';
+import {GoogleLoginButton} from '../../components/button';
+import ButtonWithIcon from './ButtonWithIcon';
+import {RightAngleIcon, SignoutIcon} from '../../assets/svg';
+import Avatar from '../../components/avatar';
 
 interface Props {
   navigation: NavigationProps;
 }
 
-const Button = ({onPress, title}: any) => {
+const renderProfile = (user?: any) => {
+  const {photoURL, displayName = 'Guest', email} = user || {};
   return (
-    <Touch
-      style={{
-        padding: 12,
-        borderWidth: 1,
-        borderColor: COLORS.PURPLEPRIMARY,
-        margin: 8,
-        borderRadius: 8
-      }}
-      onPress={onPress}>
-      <TextView color="PURPLEPRIMARY">{title}</TextView>
-    </Touch>
-  );
-};
-
-const Profile: React.FC<Props> = ({navigation}) => {
-  const goToLanguage = () => {
-    navigation.push('language');
-  };
-
-  const goToChangePassword = () => {
-    navigation.push('changePassword');
-  };
-
-  const goToTnC = () => {
-    navigation.push('termsNConditions');
-  };
-
-  return (
-    <View style={{flex: 1}}>
-      <TextView color="BLACKDARKER">Profile Screen</TextView>
-      <Button onPress={goToLanguage} title="Go to language" />
-      <Button onPress={goToChangePassword} title="Go to change password" />
-      <Button onPress={goToTnC} title={'Go to terms & conditions'} />
+    <View
+      style={{flexDirection: 'row', alignItems: 'center', marginBottom: 32}}>
+      <Avatar image={{uri: photoURL}} name={displayName} />
+      <View style={{marginLeft: 24}}>
+        <TextView
+          color="BLACKPRIMARY"
+          style={{fontSize: 16, lineHeight: 24, fontWeight: '600'}}>
+          {displayName}
+        </TextView>
+        {email && (
+          <TextView
+            color="GREYPRIMARY"
+            style={{fontSize: 14, lineHeight: 24, fontWeight: '400'}}>
+            {email}
+          </TextView>
+        )}
+      </View>
     </View>
   );
 };
 
+const Profile: React.FC<Props> = ({navigation}) => {
+  const {login, logout, isLoading, isLoggedIn, user} = useGoogleAuth();
+
+  const goToPrivacyPolicy = () => {
+    navigation.push('privacyPolicy');
+  };
+
+  const goToTermsConditions = () => {
+    navigation.push('termsConditions');
+  };
+
+  return (
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}>
+      <TextView color="BLACKPRIMARY" style={styles.heading}>
+        Profile
+      </TextView>
+      {renderProfile(user)}
+      <ButtonWithIcon label="Language" icon={RightAngleIcon} />
+      <View style={styles.br} />
+      <ButtonWithIcon
+        onPress={goToPrivacyPolicy}
+        label="Privacy"
+        icon={RightAngleIcon}
+      />
+      <View style={styles.br} />
+      <ButtonWithIcon
+        onPress={goToTermsConditions}
+        label={`Terms & Conditions`}
+        icon={RightAngleIcon}
+      />
+      <View style={styles.br} />
+      {isLoggedIn ? (
+        <ButtonWithIcon
+          disabled={isLoading}
+          onPress={logout}
+          label="Sign Out"
+          icon={SignoutIcon}
+        />
+      ) : (
+        <GoogleLoginButton disabled={isLoading} onPress={login} />
+      )}
+    </ScrollView>
+  );
+};
+
 export default Profile;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  contentContainer: {
+    padding: 20,
+  },
+  br: {height: 16},
+  heading: {
+    fontSize: 24,
+    lineHeight: 32,
+    fontWeight: '600',
+    marginBottom: 32,
+  },
+});

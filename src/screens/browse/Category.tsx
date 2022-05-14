@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {FlatList, useWindowDimensions, View} from 'react-native';
-import {useEverything} from '../../apis';
+import {useEverything, useTopHeadlines} from '../../apis';
 import Button from '../../components/button';
 import Loader from '../../components/loader';
 import {NavigationProps} from '../../components/navigator/stack';
@@ -17,7 +17,7 @@ const Category: React.FC<Props> = ({navigation}) => {
   const uniqueId = useUniqueId();
   const [activeCategory, setActiveCategory] = useState(CATEGORY[0]);
 
-  const {loading, articles} = useEverything({category: activeCategory});
+  const {loading, articles} = useTopHeadlines({category: activeCategory});
 
   const {width} = useWindowDimensions();
 

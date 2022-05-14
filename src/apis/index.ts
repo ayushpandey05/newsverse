@@ -3,6 +3,7 @@ import {AxiosInstance} from '../config';
 import useMultiState from '../hooks/useMultiState';
 
 const headlineUrl = 'top-headlines';
+const everythingUrl = 'everything'
 const defaultParams = {
   // limit: 10,
   country: 'us',
@@ -29,7 +30,7 @@ interface StateProps {
 const initialState = {
   loading: false,
 };
-const useTopHeadlines = (pageSize = 10) => {
+const useTopHeadlines = ({category,pageSize = 10}: any={}) => {
   const {state: STATE, setState} = useMultiState({...initialState});
 
   const state: StateProps = STATE;
@@ -43,6 +44,7 @@ const useTopHeadlines = (pageSize = 10) => {
     AxiosInstance.get(headlineUrl, {
       params: {
         pageSize,
+        category,
         ...defaultParams,
       },
     })
@@ -62,11 +64,11 @@ const useTopHeadlines = (pageSize = 10) => {
     return () => {
       didCancel = true;
     };
-  }, []);
+  }, [category, pageSize]);
   return {articles, totalResults, loading};
 };
 
-const useEverything = ({category, pageSize = 10}: any) => {
+const useEverything = ({category, pageSize = 10}: any={}) => {
   const {state: STATE, setState} = useMultiState({...initialState});
 
   const state: StateProps = STATE;
@@ -77,7 +79,7 @@ const useEverything = ({category, pageSize = 10}: any) => {
     setState({loading: true});
     let didCancel = false;
 
-    AxiosInstance.get(headlineUrl, {
+    AxiosInstance.get(everythingUrl, {
       params: {
         pageSize,
         category,

@@ -7,7 +7,10 @@ import MicrophoneIcon from './microphone.svg';
 import BookmarkV2EmptyIcon from './bookmark-v2-empty.svg';
 import BookmarkV2FilledIcon from './bookmark-v2-filled.svg';
 import LeftArrowIcon from './left-arrow-icon.svg';
-import PhotoIcon from './photo-icon.svg'
+import PhotoIcon from './photo-icon.svg';
+import GoogleLogoIcon from './google-logo.svg';
+import SignoutIcon from './signout-icon.svg';
+import RightAngleIcon from './angle-right.svg';
 
 export {
   AppsIcon,
@@ -19,5 +22,8 @@ export {
   BookmarkV2EmptyIcon,
   BookmarkV2FilledIcon,
   LeftArrowIcon,
-  PhotoIcon
+  PhotoIcon,
+  GoogleLogoIcon,
+  SignoutIcon,
+  RightAngleIcon
 };

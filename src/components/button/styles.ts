@@ -58,4 +58,29 @@ const secondaryButton = StyleSheet.create({
   }
 })
 
-export {largeButton, smallButton, primaryButton, secondaryButton};
+const googleButton = StyleSheet.create({
+  btnIconContainer: {
+    width: 56,
+    height: 56,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  btnText: {
+    flex: 1,
+    textAlign: 'center',
+    fontWeight: '600',
+    fontSize: 16,
+    lineHeight: 24,
+  },
+  btnTouch: {
+    height: 56,
+    borderWidth: 1,
+    borderColor: COLORS[COLOR_NAMES.greyLighter],
+    borderRadius: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+})
+
+export {largeButton, smallButton, primaryButton, secondaryButton, googleButton};

@@ -44,13 +44,17 @@ const Recommended: React.FC<Props> = ({navigation}) => {
   const uniqueId = useUniqueId();
   const {articles, totalResults, loading} = useTopHeadlines();
 
+  const goToTopHeadlines = () => {
+    navigation.push('topHeadlines');
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <TextView style={styles.headTitle} color="BLACKPRIMARY">
           {'Recommended for you'}
         </TextView>
-        <Touch>
+        <Touch onPress={goToTopHeadlines}>
           <TextView style={styles.headButton} color="GREYPRIMARY">
             {'See All'}
           </TextView>
@@ -76,15 +80,19 @@ const Recommended: React.FC<Props> = ({navigation}) => {
                   image: {uri: item.urlToImage},
                 };
 
-                const onPress=()=>{
+                const onPress = () => {
                   navigation.push('webview', {
-                    uri: item.url
-                  })
-                }
+                    uri: item.url,
+                  });
+                };
 
                 return (
                   <>
-                    <RecommendedCard key={data.id} onPress={onPress} {...data} />
+                    <RecommendedCard
+                      key={data.id}
+                      onPress={onPress}
+                      {...data}
+                    />
                     {index < articles.length - 1 ? (
                       <View key={`${data.id}-gap`} style={{height: 16}} />
                     ) : (
@@ -104,7 +112,8 @@ export default Recommended;
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingTop: 20,
   },
   header: {
     flexDirection: 'row',

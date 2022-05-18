@@ -14,7 +14,7 @@ const Header: React.FC<Props> = ({url, title, closeView}) => {
   return (
     <View style={styles.container}>
       <Touch onPress={closeView} style={styles.iconContainer}>
-        <LeftArrowIcon width={24} height={24} />
+        <LeftArrowIcon width={32} height={32} />
       </Touch>
       <View style={styles.urlContainer}>
         <TextView numberOfLines={1}>{title}</TextView>
@@ -30,10 +30,9 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 4,
   },
   iconContainer: {
-    padding: 8,
+    padding: 4,
     width: 52,
     justifyContent: 'center',
     alignItems: 'center',

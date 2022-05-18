@@ -55,7 +55,7 @@ interface Props {
 
 const Browse: React.FC<Props> = ({navigation}) => {
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView contentContainerStyle={styles.contentContainer} style={styles.container}>
       <Header />
       <View style={styles.searchContainer}>
         <TextInput
@@ -75,6 +75,9 @@ export default Browse;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  contentContainer: {
+    paddingVertical: 20,
   },
   searchContainer: {
     marginHorizontal: 20,

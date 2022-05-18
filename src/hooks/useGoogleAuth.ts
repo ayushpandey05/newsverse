@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+// import {initialize} from 'react-native-mmkv-storage/dist/src/initializer';
 
 const webClientId = '314652281679-b5hk113c6f29e80gtim15gqv851o9rmg';
 
@@ -31,7 +32,6 @@ const useGoogleAuth = () => {
       await auth().signInWithCredential(googleCredential);
       //   await setAuthState({isLoading: false});
     } catch (err) {
-        console.log('@@error!>>>', err)
       await setAuthState({isLoading: false});
     }
   };
@@ -48,7 +48,7 @@ const useGoogleAuth = () => {
   };
 
   const onAuthStateChanged = async (newUser: any) => {
-    // setUser(newUser);
+    // initialize(user?.uid);
     await setAuthState({user: newUser, isLoading: false});
     // if (initializing) setInitializing(false);
   };

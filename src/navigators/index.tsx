@@ -10,7 +10,8 @@ import Home from '../screens/home';
 import Language from '../screens/language';
 import PrivacyPolicy from '../screens/privacy-policy';
 import Profile from '../screens/profile';
-import TermsNConditions from '../screens/terms-n-conditions';
+import TermsConditions from '../screens/terms-conditions';
+import TopHeadlines from '../screens/top-headlines';
 import WebView from '../screens/webview';
 
 const RootTabNavigator = createTabNavigator({
@@ -19,14 +20,14 @@ const RootTabNavigator = createTabNavigator({
       screen: Browse,
       icon: EstateIcon,
     },
-    categories: {
-      screen: Categories,
-      icon: AppsIcon,
-    },
-    bookmarks: {
-      screen: Bookmarks,
-      icon: BookmarkIcon,
-    },
+    // categories: {
+    //   screen: Categories,
+    //   icon: AppsIcon,
+    // },
+    // bookmarks: {
+    //   screen: Bookmarks,
+    //   icon: BookmarkIcon,
+    // },
     profile: {
       screen: Profile,
       icon: UserIcon,
@@ -48,9 +49,6 @@ const MainNavigator = createStackNavigator({
     changePassword: {
       screen: ChangePassword,
     },
-    termsNConditions: {
-      screen: TermsNConditions,
-    },
     webview: {
       screen: WebView,
     },
@@ -58,8 +56,11 @@ const MainNavigator = createStackNavigator({
       screen: PrivacyPolicy,
     },
     termsConditions: {
-      screen: PrivacyPolicy,
+      screen: TermsConditions,
     },
+    topHeadlines: {
+      screen: TopHeadlines
+    }
   },
 });
 
